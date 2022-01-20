@@ -20,10 +20,8 @@ jobs:
       uses: ATiltedTree/setup-rust@v1.0.5
       with:
         rust-version: nightly
-        # The components to install
         components: rust-src
-        # The targets to install
-        targets: "x86_64-unknown-uefi x86_64-pc-windows-msvc"
+        targets: "x86_64-pc-windows-msvc"
     
     - name: rust-cargo-make
       uses: davidB/rust-cargo-make@v1.6.0
