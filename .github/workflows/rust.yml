@@ -1,0 +1,23 @@
+name: Rust
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: rust-cargo-make
+      uses: davidB/rust-cargo-make@v1.6.0
+      
+    - name: Build
+      run: cargo make
