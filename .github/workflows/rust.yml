@@ -21,7 +21,7 @@ jobs:
       with:
         rust-version: nightly
         components: rust-src
-        targets: "x86_64-pc-windows-msvc"
+        targets: "x86_64-pc-windows-gnu"
     
     - name: rust-cargo-make
       uses: davidB/rust-cargo-make@v1.6.0
