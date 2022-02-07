@@ -6,45 +6,9 @@ use core::mem::{self, MaybeUninit};
 use ezhook::remote_swap_hook;
 use uefi::{prelude::*, Guid};
 
-static VARIABLE_NAME: &str = "zLjiCTzRj\0";
+// static VARIABLE_NAME: &'static str = "zLjiCTzRj\0";
 
-// use crate::protocol::*;
-use protocol::{
-    MemoryCommand, COMMAND_MAGIC, COPY_OPERATION, DIRECT_COPY, GET_PROCESS_BASE_ADDRESS_OPERATION,
-    SETUP_OPERATION,
-};
-
-// use crate::protocol::VARIABLE_NAME;
-
-pub use core::ffi::c_void;
-
-#[allow(dead_code)]
-pub type c_char = i8;
-#[allow(dead_code)]
-pub type c_double = f64;
-#[allow(dead_code)]
-pub type c_float = f32;
-#[allow(dead_code)]
-pub type c_int = i32;
-#[allow(dead_code)]
-pub type c_long = i64;
-#[allow(dead_code)]
-pub type c_longlong = i64;
-#[allow(dead_code)]
-pub type c_schar = i8;
-#[allow(dead_code)]
-pub type c_short = i16;
-#[allow(dead_code)]
-pub type c_uchar = u8;
-#[allow(dead_code)]
-
-pub type c_uint = u32;
-#[allow(dead_code)]
-pub type c_ulong = u64;
-#[allow(dead_code)]
-pub type c_ulonglong = u64;
-#[allow(dead_code)]
-pub type c_ushort = u16;
+use crate::protocol::*;
 
 macro_rules! cast_to_function {
     ($address:expr, $t:ty) => {

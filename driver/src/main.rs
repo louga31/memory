@@ -5,6 +5,7 @@
 #![feature(abi_efiapi)]
 
 mod driver;
+mod protocol;
 #[macro_use]
 mod logger;
 mod utils;
@@ -12,8 +13,8 @@ mod utils;
 use core::mem::MaybeUninit;
 use core::{mem, ptr::NonNull};
 
+use crate::protocol::DummyProtocolData;
 use crate::{driver::set_variable_hook, utils::*};
-use protocol::DummyProtocolData;
 use uefi::{
     prelude::*,
     proto::console::text::Color,

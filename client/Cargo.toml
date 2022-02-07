@@ -8,5 +8,17 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[build-dependencies]
+anyhow = "1.0"
+fs_extra = "1.2"
+
 [dependencies]
-protocol = { path = "../protocol" }
+winapi = "0.3"
+
+[dependencies.ntapi]
+version = "0.3"
+features = [
+    "func-types",
+    "impl-default",
+    "nightly",
+]

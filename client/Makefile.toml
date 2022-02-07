@@ -1,0 +1,6 @@
+[tasks.build]
+args = ["build"]
+# args = ["build", "--release"]
+
+[tasks.test]
+disabled = true
