@@ -5,5 +5,5 @@ members = [
     "client"
 ]
 
-[profile.release]
-strip = false
+#[profile.release]
+#strip = false

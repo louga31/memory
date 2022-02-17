@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+use kernel32::GetCurrentProcessId;
 use std::mem::size_of;
 
 use crate::protocol::*;
@@ -7,24 +9,15 @@ use winapi::shared::{
     ntdef::{BOOLEAN, NTSTATUS, NT_SUCCESS, PWCH, ULONG, UNICODE_STRING, USHORT},
 };
 
-#[allow(dead_code)]
 static EFI_VARIABLE_NON_VOLATILE: ULONG = 0x00000001;
-#[allow(dead_code)]
 static EFI_VARIABLE_BOOTSERVICE_ACCESS: ULONG = 0x00000002;
-#[allow(dead_code)]
 static EFI_VARIABLE_RUNTIME_ACCESS: ULONG = 0x00000004;
-#[allow(dead_code)]
 static EFI_VARIABLE_HARDWARE_ERROR_RECORD: ULONG = 0x00000008;
-#[allow(dead_code)]
 static EFI_VARIABLE_AUTHENTICATED_WRITE_ACCESS: ULONG = 0x00000010;
-#[allow(dead_code)]
 static EFI_VARIABLE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS: ULONG = 0x00000020;
-#[allow(dead_code)]
 static EFI_VARIABLE_APPEND_WRITE: ULONG = 0x00000040;
-#[allow(dead_code)]
 static ATTRIBUTES: ULONG =
     EFI_VARIABLE_NON_VOLATILE | EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS;
-#[allow(dead_code)]
 static SE_SYSTEM_ENVIRONMENT_PRIVILEGE: ULONG = 22;
 
 pub fn set_system_environment_privilege(enable: bool, was_enabled: &mut bool) -> NTSTATUS {
@@ -76,5 +69,23 @@ pub fn get_base_address(pid: u64) -> u64 {
     cmd.data[0] = pid;
     cmd.data[1] = &mut result as *const _ as u64;
     send_command(&mut cmd);
+    result
+}
+
+pub fn test() -> u64 {
+    let current_process_id: u64 = unsafe { GetCurrentProcessId() as u64 };
+    let mut buffer: [u8; 0x1000] = [0; 0x1000];
+    let mut result: u64 = 0;
+    let mut cmd: MemoryCommand = MemoryCommand::default();
+    cmd.operation = COPY_OPERATION;
+    cmd.data[0] = 4;
+    cmd.data[1] = 0;
+    cmd.data[2] = current_process_id;
+    cmd.data[3] = &mut buffer as *mut _ as u64;
+    cmd.data[4] = 0x1000;
+    cmd.data[5] = &mut result as *const _ as u64;
+
+    send_command(&mut cmd);
+    println!("buffer: {:?}", buffer);
     result
 }
